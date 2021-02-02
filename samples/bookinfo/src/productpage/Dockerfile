@@ -31,7 +31,6 @@ ENV FLOOD_FACTOR ${flood_factor:-0}
 
 EXPOSE 9080
 WORKDIR /opt/microservices
-RUN python -m unittest discover
 
 USER 1
 
