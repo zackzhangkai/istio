@@ -186,7 +186,7 @@ def getForwardHeaders(request):
 
     # Add user-agent to headers manually
     headers.update(request.headers)
-    headers["host"] = "reviews:9080"
+    headers["Host"] = "reviews:9080"
     # headers['end-user'] = "zack"
     print("headers: ################")
     print(str(headers))
