@@ -168,15 +168,15 @@ def trace():
 def getForwardHeaders(request):
     headers = {}
 
-    # x-b3-*** headers can be populated using the opentracing span
-    span = get_current_span()
-    carrier = {}
-    tracer.inject(
-        span_context=span.context,
-        format=Format.HTTP_HEADERS,
-        carrier=carrier)
-
-    headers.update(carrier)
+    # # x-b3-*** headers can be populated using the opentracing span
+    # span = get_current_span()
+    # carrier = {}
+    # tracer.inject(
+    #     span_context=span.context,
+    #     format=Format.HTTP_HEADERS,
+    #     carrier=carrier)
+    #
+    # headers.update(carrier)
 
     # # We handle other (non x-b3-***) headers manually
     # if 'user' in session:
@@ -185,10 +185,11 @@ def getForwardHeaders(request):
     incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
 
     # Add user-agent to headers manually
-    # headers.update(request.headers)
-    headers['end-user'] = "zack"
+    headers.update(request.headers)
+    # headers['end-user'] = "zack"
     print("headers: ################")
     print(str(headers))
+    print("####")
     # for ihdr in incoming_headers:
     #     val = request.headers.get(ihdr)
     #     if val is not None:
