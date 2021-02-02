@@ -187,8 +187,8 @@ def getForwardHeaders(request):
     # Add user-agent to headers manually
     # headers.update(request.headers)
     headers['end-user'] = "zack"
-    print "headers: ################"
-    print str(headers)
+    print("headers: ################")
+    print(str(headers))
     # for ihdr in incoming_headers:
     #     val = request.headers.get(ihdr)
     #     if val is not None:
