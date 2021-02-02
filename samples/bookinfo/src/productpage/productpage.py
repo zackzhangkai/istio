@@ -186,7 +186,8 @@ def getForwardHeaders(request):
 
     # Add user-agent to headers manually
     for i in request.headers:
-        headers[i] = request.headers[i]
+        a = request.headers[i]
+        headers[i] = a
 
     for ihdr in incoming_headers:
         val = request.headers.get(ihdr)
