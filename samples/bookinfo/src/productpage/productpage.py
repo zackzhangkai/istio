@@ -182,18 +182,19 @@ def getForwardHeaders(request):
     # if 'user' in session:
     #     headers['end-user'] = session['user']
     headers['end-user'] = "zack"
+    headers['x-request-id'] = "0844f0c0-076d-4b39-b9d8-9bc966923443"
 
-    incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
-
-    # # Add user-agent to headers manually
-    # if 'user-agent' in request.headers:
-    #     headers['user-agent'] = request.headers.get('user-agent')
-
-    for ihdr in incoming_headers:
-        val = request.headers.get(ihdr)
-        if val is not None:
-            headers[ihdr] = val
-            # print "incoming: "+ihdr+":"+val
+    # incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
+    #
+    # # # Add user-agent to headers manually
+    # # if 'user-agent' in request.headers:
+    # #     headers['user-agent'] = request.headers.get('user-agent')
+    #
+    # for ihdr in incoming_headers:
+    #     val = request.headers.get(ihdr)
+    #     if val is not None:
+    #         headers[ihdr] = val
+    #         # print "incoming: "+ihdr+":"+val
 
     print("headers: ###############")
     print(str(headers))
