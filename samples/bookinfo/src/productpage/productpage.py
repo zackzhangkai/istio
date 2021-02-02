@@ -185,7 +185,7 @@ def getForwardHeaders(request):
     incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
 
     # Add user-agent to headers manually
-    # headers.update(request.headers)
+    headers.update(request.headers)
     headers["Host"] = "reviews:9080"
     # headers['end-user'] = "zack"
     print("headers: ################")
