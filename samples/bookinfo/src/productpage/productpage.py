@@ -185,14 +185,15 @@ def getForwardHeaders(request):
     incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
 
     # Add user-agent to headers manually
-    headers['end-user'] = "zack"
     # headers.update(request.headers)
-    
-    for ihdr in incoming_headers:
-        val = request.headers.get(ihdr)
-        if val is not None:
-            headers[ihdr] = val
-            # print "incoming: "+ihdr+":"+val
+    headers['end-user'] = "zack"
+    print "headers: ################"
+    print str(headers)
+    # for ihdr in incoming_headers:
+    #     val = request.headers.get(ihdr)
+    #     if val is not None:
+    #         headers[ihdr] = val
+    #         # print "incoming: "+ihdr+":"+val
 
     return headers
 
