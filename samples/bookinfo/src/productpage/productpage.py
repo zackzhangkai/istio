@@ -168,35 +168,36 @@ def trace():
 def getForwardHeaders(request):
     headers = {}
 
-    # # x-b3-*** headers can be populated using the opentracing span
-    # span = get_current_span()
-    # carrier = {}
-    # tracer.inject(
-    #     span_context=span.context,
-    #     format=Format.HTTP_HEADERS,
-    #     carrier=carrier)
-    #
+    # x-b3-*** headers can be populated using the opentracing span
+    span = get_current_span()
+    carrier = {}
+    tracer.inject(
+        span_context=span.context,
+        format=Format.HTTP_HEADERS,
+        carrier=carrier)
+
     # headers.update(carrier)
 
-    # # We handle other (non x-b3-***) headers manually
+    # We handle other (non x-b3-***) headers manually
     # if 'user' in session:
     #     headers['end-user'] = session['user']
+    headers['end-user'] = "zack"
 
     incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
 
-    # Add user-agent to headers manually
-    headers.update(request.headers)
-    headers["Host"] = "reviews:9080"
-    # headers['end-user'] = "zack"
-    print("headers: ################")
-    print(str(headers))
-    print("####")
-    # for ihdr in incoming_headers:
-    #     val = request.headers.get(ihdr)
-    #     if val is not None:
-    #         headers[ihdr] = val
-    #         # print "incoming: "+ihdr+":"+val
+    # # Add user-agent to headers manually
+    # if 'user-agent' in request.headers:
+    #     headers['user-agent'] = request.headers.get('user-agent')
 
+    for ihdr in incoming_headers:
+        val = request.headers.get(ihdr)
+        if val is not None:
+            headers[ihdr] = val
+            # print "incoming: "+ihdr+":"+val
+
+    print("headers: ###############")
+    print(str(headers))
+    print("########################################")
     return headers
 
 
