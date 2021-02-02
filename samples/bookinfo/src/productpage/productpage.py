@@ -178,15 +178,15 @@ def getForwardHeaders(request):
 
     headers.update(carrier)
 
-    # We handle other (non x-b3-***) headers manually
-    if 'user' in session:
-        headers['end-user'] = session['user']
+    # # We handle other (non x-b3-***) headers manually
+    # if 'user' in session:
+    #     headers['end-user'] = session['user']
 
     incoming_headers = ['x-request-id', 'x-datadog-trace-id', 'x-datadog-parent-id', 'x-datadog-sampled']
 
     # Add user-agent to headers manually
-    if 'user-agent' in request.headers:
-        headers['user-agent'] = request.headers.get('user-agent')
+    for i in request.headers:
+        headers[i] = request.headers[i]
 
     for ihdr in incoming_headers:
         val = request.headers.get(ihdr)

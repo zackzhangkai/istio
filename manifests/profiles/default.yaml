@@ -3,8 +3,8 @@ kind: IstioOperator
 metadata:
   namespace: istio-system
 spec:
-  hub: gcr.io/istio-testing
-  tag: latest
+  hub: istio
+  tag: 1.6.10
 
   # You may override parts of meshconfig by uncommenting the following lines.
   meshConfig:
@@ -215,7 +215,7 @@ spec:
 
   addonComponents:
     prometheus:
-      enabled: true
+      enabled: false
       k8s:
         replicaCount: 1
     kiali:
@@ -243,7 +243,7 @@ spec:
         level: "default:info"
       logAsJson: false
       pilotCertProvider: istiod
-      jwtPolicy: third-party-jwt
+      jwtPolicy: first-party-jwt
       proxy:
         image: proxyv2
         clusterDomain: "cluster.local"
@@ -266,7 +266,7 @@ spec:
         excludeIPRanges: ""
         excludeOutboundPorts: ""
         excludeInboundPorts: ""
-        autoInject: enabled
+        autoInject: disabled
         envoyStatsd:
           enabled: false
           host: # example: statsd-svc.istio-system
@@ -283,15 +283,15 @@ spec:
             memory: 10Mi
       # Specify image pull policy if default behavior isn't desired.
       # Default behavior: latest images will be Always else IfNotPresent.
-      imagePullPolicy: ""
+      imagePullPolicy: "IfNotPresent"
       operatorManageWebhooks: false
-      controlPlaneSecurityEnabled: true
+      controlPlaneSecurityEnabled: false
       tracer:
         lightstep:
           address: ""                # example: lightstep-satellite:443
           accessToken: ""            # example: abcdefg1234567
         zipkin:
-          address: ""
+          address: "jaeger-collector.istio-system.svc:9411"
         datadog:
           address: "$(HOST_IP):8126"
         stackdriver:
@@ -466,7 +466,7 @@ spec:
             mountPath: /etc/istio/ingressgateway-ca-certs
 
     sidecarInjectorWebhook:
-      enableNamespacesByDefault: false
+      enableNamespacesByDefault: true
       rewriteAppHTTPProbe: true
       injectLabel: istio-injection
       objectSelector:
